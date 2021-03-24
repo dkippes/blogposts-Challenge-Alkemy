@@ -15,12 +15,19 @@ const postsController = {
 					association: 'categories'
 				}]
 		})
-			.then(posts => {
-				res.status(200).json(posts);
-			})
-			.catch(err => {
-				res.status(404);
-			})
+		.then(posts => {
+			res
+			.status(200)
+			.json(posts);
+		})
+		.catch(err => {
+			res
+			.status(500)
+			.json({
+				message: 'Internal Server Error',
+				err
+			});
+		});
     },
 
 
@@ -35,23 +42,29 @@ const postsController = {
 				association: 'categories'
 			}]
 		})
-			.then(post => {
+		.then(post => {
 
-				if(post) {
-					res.status(200).json(post);
-				} else {
-					res.status(404).json({
-						message: 'Post not found'
-					});
-				}
-
-			})
-			.catch(err => {
-				res.status(500).json({
-					message: 'Internal Server Error',
-					err
+			if(post) {
+				res
+				.status(200)
+				.json(post);
+			} else {
+				res
+				.status(404)
+				.json({
+					message: 'Post not found'
 				});
+			}
+
+		})
+		.catch(err => {
+			res
+			.status(500)
+			.json({
+				message: 'Internal Server Error',
+				err
 			});
+		});
 		
 	 },
 
@@ -72,9 +85,11 @@ const postsController = {
 		 	typeof category === "undefined" ||
 			typeof category !== "string"
 		 ) {
-			return res.status(400).json({
-				message: 'Bad Request'
-			});
+			return res
+					.status(400)
+					.json({
+						message: 'Bad Request'
+					});
 		 }
 
 		 db.Categories.create({
@@ -88,7 +103,8 @@ const postsController = {
 			include: [{ association: 'posts' }]
 		 });
 
-		 res.status(200);
+		 res
+		 .status(200);
 	 },
 
 
@@ -107,9 +123,11 @@ const postsController = {
 			typeof image !== "string" ||
 			!image.match(/[^/]+(jpg|png|gif)$/)
 		 ) {
-			return res.status(400).json({
-				message: 'Bad Request'
-			});
+			return res
+					.status(400)
+					.json({
+						message: 'Bad Request'
+					});
 		 }
 
 		 try {
@@ -120,9 +138,11 @@ const postsController = {
 			})
 
 			if(!post) {
-				return res.status(404).json({
-					message: 'Post not found'
-				});
+				return res
+						.status(404)
+						.json({
+							message: 'Post not found'
+						});
 			}
 
 			await db.Posts.update({
@@ -135,13 +155,17 @@ const postsController = {
 			   }
 		   });
 
-		   res.status(200).json({
-			message: 'Post Updated'
+		   res
+		   .status(200)
+		   .json({
+				message: 'Post Updated'
 			});
 
 		 } catch {
 
-			res.status(500).json({
+			res
+			.status(500)
+			.json({
 				message: 'Internal Server Error'
 			});
 
@@ -163,9 +187,11 @@ const postsController = {
 			})
 
 			if(!post) {
-				return res.status(404).json({
-					message: 'Post not found'
-				});
+				return res
+						.status(404)
+						.json({
+							message: 'Post not found'
+						});
 			}
 
 			db.Posts.destroy({
@@ -174,13 +200,16 @@ const postsController = {
 				}
 			});
 
-			res.json({
+			res
+			.json({
 				message: 'Post deleted'
 			});
 
 		} catch {
 
-			res.status(500).json({
+			res
+			.status(500)
+			.json({
 				message: 'Internal Server Error'
 			});
 			
