@@ -30,6 +30,11 @@ const postReducer = (state = defaultState, action) => {
 			return { ...state, posts: [ ...updatedPosts, action.payload ] }
 		case EDIT_POST_ERROR:
 			return { ...state, error: action.payload };
+		case DELETE_POST_SUCCESS:
+			const filteredPosts = state.posts.filter(post => post.id !== action.payload.id);
+			return { ...state, posts: filteredPosts };
+		case DELETE_POST_ERROR:
+			return { ...state, error: action.payload };
 		case FETCH_POSTS_SUCCESS:
 			return { ...state, posts: action.payload };
 		case FETCH_POSTS_LOADING:

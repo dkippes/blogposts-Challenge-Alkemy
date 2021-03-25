@@ -1,4 +1,12 @@
 .App {
   text-align: center;
-  padding: 10%;
+  padding-left: 5%;
+  padding-right: 5%;
+}
+
+@media (max-width: 500px) {
+	.App {
+		padding-left: 0;
+		padding-right: 0;
+	  }	
 }

@@ -19,6 +19,7 @@ import { history } from '../../index';
 const url = 'https://jsonplaceholder.typicode.com/posts';
 const urlCreatePost = 'https://jsonplaceholder.typicode.com/posts';
 const urlEditPost = 'https://jsonplaceholder.typicode.com/posts/';
+const urlDeletePost = 'https://jsonplaceholder.typicode.com/posts/';
 
 //CREATE -------------------------------------------------------------------
 export const createPostSuccess = (data) => {
@@ -118,7 +119,41 @@ export const editPost = (data) => {
 			})
 	}
 }
+
 //DELETE -------------------------------------------------------------------
+export const deletePostSuccess = (id) => {
+	return {
+		type: DELETE_POST_SUCCESS,
+		payload: {
+			id: id
+		}
+	}
+}
+
+export const deletePostError = (data) => {
+	return {
+		type: DELETE_POST_ERROR,
+		payload: data
+	}
+}
+
+export const deletePost = (id) => {
+	return (dispatch) => {
+		return axios.delete(urlDeletePost + id)
+			.then(({data}) => {
+				
+				dispatch(deletePostSuccess(id));
+			})
+			.catch(err => {
+				const errorPayload = {};
+	
+				errorPayload['message'] = 'Error when deleting a post';
+				errorPayload['status'] = 400;
+
+				dispatch(deletePostError(errorPayload))
+			});
+	}
+}
 
 //FETCH --------------------------------------------------------------------
 

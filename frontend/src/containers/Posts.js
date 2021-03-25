@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import Post from '../components/Post';
 import { connect } from 'react-redux';
 import { fetchPosts } from '../redux/actions/post.actions';
+import { deletePost } from '../redux/actions/post.actions';
 import { history } from '../index';
 
 class Posts extends Component {
@@ -51,6 +52,7 @@ class Posts extends Component {
 											key={post.id} 
 											post={post}
 											onEdit={this.handleEdit.bind(this)}
+											onDelete={this.props.onDelete}
 										/>
 									)
 								})
@@ -76,6 +78,10 @@ const mapDispatchToProps = (dispatch) => {
 	return {
 		onFetch: () => {
 			dispatch(fetchPosts());
+		},
+
+		onDelete: (id) => {
+			dispatch(deletePost(id));
 		}
 	}
 }

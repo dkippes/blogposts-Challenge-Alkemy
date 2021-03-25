@@ -1,0 +1,20 @@
+.td-edit-delete-post {
+	display: flex;
+	justify-content: space-evenly;
+}
+
+.btn-edit-delete {
+	width: 45%;
+}
+
+@media (max-width: 1000px) {
+	.td-edit-delete-post {
+		display: flex;
+		flex-direction: column;
+	}	
+
+	.btn-edit-delete {
+		margin-top: 2%;
+		width: 100%;
+	}
+}

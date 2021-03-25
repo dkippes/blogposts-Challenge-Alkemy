@@ -6,18 +6,16 @@ class Nav extends Component {
 		super(props);
 	}
 
-	componentWillMount() {
+	/* componentDidMount() {
 		this.props.notifyPathname(window.location.pathname);
-	}
+	} */
 
 	render() {
 		return (
-			<div>
-				{
-					this.props.pathname === '/' ?
-					<Link to="/create">Add New</Link> : ''
-				}
-			</div>
+			<nav className="navbar navbar-dark bg-dark">
+					<Link to="/">Home</Link>
+					<Link to="/create">Add New Post</Link>
+			</nav>
 		)
 	}
 }
