@@ -2,6 +2,15 @@ const db = require('../database/models');
 const idParamIsNaN = require('../helpers/idParamIsNaN');
 const fieldsWrongType = require('../helpers/fieldsWrongType');
 
+function catchResponse(err) {
+	return res
+		.status(500)
+		.json({
+			message: 'Internal Server Error',
+			err
+		});
+}
+
 const postsController = {
 
 	/**
@@ -23,12 +32,7 @@ const postsController = {
 			.json(posts);
 		})
 		.catch(err => {
-			res
-			.status(500)
-			.json({
-				message: 'Internal Server Error',
-				err
-			});
+			catchResponse(err);
 		});
     },
 
@@ -68,12 +72,7 @@ const postsController = {
 
 		})
 		.catch(err => {
-			res
-			.status(500)
-			.json({
-				message: 'Internal Server Error',
-				err
-			});
+			catchResponse(err);
 		});
 		
 	 },
@@ -159,12 +158,7 @@ const postsController = {
 			});
 
 		 } catch (err) {
-			res
-			.status(500)
-			.json({
-				message: 'Internal Server Error',
-				err
-			});
+			catchResponse(err);
 		 }
 	 },
 
@@ -210,13 +204,7 @@ const postsController = {
 			});
 
 		} catch {
-
-			res
-			.status(500)
-			.json({
-				message: 'Internal Server Error'
-			});
-			
+			catchResponse(err)
 		}
 
 	}
