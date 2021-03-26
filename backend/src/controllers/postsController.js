@@ -1,4 +1,6 @@
 const db = require('../database/models');
+const idParamIsNaN = require('../helpers/idParamIsNaN');
+const fieldsWrongType = require('../helpers/fieldsWrongType');
 
 const postsController = {
 
@@ -37,6 +39,14 @@ const postsController = {
 	 getOnePosts: (req, res) => {
 		const { id } = req.params;
 
+		if(idParamIsNaN(id)) {
+			return res
+					.status(400)
+					.json({
+						message: 'Bad Request'
+					});
+		}
+
 		db.Posts.findByPk(id, {
 			include: [{
 				association: 'categories'
@@ -72,19 +82,10 @@ const postsController = {
 	/**
 	 * "POST/posts
 	*/
-	 insertPost: (req, res) => {
+	 insertPost: async (req, res) => {
 		 const { title, content, image, category } = req.body;
 
-		 if(typeof title === "undefined" ||
-		 	typeof title !== "string" ||
-		 	typeof content === "undefined" ||
-			typeof content !== "string" ||
-		 	typeof image === "undefined" ||
-			typeof image !== "string" ||
-			!image.match(/[^/]+(jpg|png|gif)$/) ||
-		 	typeof category === "undefined" ||
-			typeof category !== "string"
-		 ) {
+		 if(fieldsWrongType(title, content, image, category)) {
 			return res
 					.status(400)
 					.json({
@@ -92,7 +93,7 @@ const postsController = {
 					});
 		 }
 
-		 db.Categories.create({
+		 await db.Categories.create({
 			name: category,
 			posts: {
 				title: title,
@@ -104,7 +105,10 @@ const postsController = {
 		 });
 
 		 res
-		 .status(200);
+		 .status(200)
+		 .json({
+			 message: 'Post Added'
+		 });
 	 },
 
 
@@ -115,14 +119,7 @@ const postsController = {
 		const { id } = req.params;
 		const { title, content, image } = req.body;
 
-		if(typeof title === "undefined" ||
-		 	typeof title !== "string" ||
-		 	typeof content === "undefined" ||
-			typeof content !== "string" ||
-		 	typeof image === "undefined" ||
-			typeof image !== "string" ||
-			!image.match(/[^/]+(jpg|png|gif)$/)
-		 ) {
+		if( fieldsWrongType(title, content, image, category = '') || idParamIsNaN(id) ) {
 			return res
 					.status(400)
 					.json({
@@ -161,14 +158,13 @@ const postsController = {
 				message: 'Post Updated'
 			});
 
-		 } catch {
-
+		 } catch (err) {
 			res
 			.status(500)
 			.json({
-				message: 'Internal Server Error'
+				message: 'Internal Server Error',
+				err
 			});
-
 		 }
 	 },
 
@@ -178,6 +174,14 @@ const postsController = {
 	*/
 	deletePost: async (req, res) => {
 		const { id } = req.params;
+
+		if(idParamIsNaN(id)) {
+			return res
+					.status(400)
+					.json({
+						message: 'Bad Request'
+					});
+		}
 
 		try {
 			const post = await db.Posts.findOne({
