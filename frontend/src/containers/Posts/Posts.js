@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
-import Post from '../components/Post';
+import Post from '../../components/Post/Post';
 import { connect } from 'react-redux';
-import { fetchPosts } from '../redux/actions/post.actions';
-import { deletePost } from '../redux/actions/post.actions';
-import { history } from '../index';
+import { fetchPosts } from '../../redux/actions/post.actions';
+import { deletePost } from '../../redux/actions/post.actions';
+import { history } from '../../index';
 
 class Posts extends Component {
     constructor(props) {

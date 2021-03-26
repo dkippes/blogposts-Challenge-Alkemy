@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { createPost } from '../redux/actions/post.actions';
+import { createPost } from '../../redux/actions/post.actions';
 import { connect } from 'react-redux';
-import './CreatePost.css';
+import './PostForm.css';
 
-class CreatePost extends Component {
+class PostForm extends Component {
 	constructor(props) {
 		super(props);
 
@@ -16,7 +16,7 @@ class CreatePost extends Component {
 
 	handleSubmit(e) {
 		e.preventDefault();
-		this.props.onAdd(this.state);
+		this.props.onPost(this.state);
 	}
 
 	hadleOnValueChange(e) {
@@ -82,8 +82,8 @@ class CreatePost extends Component {
 					</div>
 					<div className="form-group">
 						<button type="submit" className="btn btn-primary">
-							Add
-							</button>
+							Add/Edit
+						</button>
 						<button type="button" className="btn btn-default"
 							onClick={this.hadleReset.bind(this)}
 						>
@@ -104,10 +104,10 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
 	return {
-		onAdd: (post) => {
+		onPost: (post) => {
 			dispatch(createPost(post));
 		}
 	}
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(CreatePost);
+export default connect(mapStateToProps, mapDispatchToProps)(PostForm);

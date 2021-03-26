@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
-import Posts from './containers/Posts';
-import CreatePost from './containers/CreatePost';
-import Nav from './components/Nav';
+import Posts from './containers/Posts/Posts';
+import PostForm from './containers/PostForm/PostForm';
+import Nav from './components/Nav/Nav';
 
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
@@ -43,12 +43,12 @@ class App extends Component {
 					<Route
 						path="/create" 
 						exact 
-						component={() => <CreatePost />} 
+						component={() => <PostForm />} 
 					/>
 					<Route
 						path="/edit/:id" 
 						exact 
-						component={(props) => <CreatePost { ...props } />} 
+						component={(props) => <PostForm { ...props } />} 
 					/>
 				</Switch>
     		</div>
