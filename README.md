@@ -4,6 +4,7 @@
   - [ ] Borrar lineas en blanco
   - [ ] Separar metodo catch - crear carpeta helpers
   - [ ] Factorizar la validacion de los campos
+  - [ ] Cambiar testing para que al consumir el endpoint no se ejecute sobre la base de datos real
 - Frontend:
   - [ ] Sacar codigo comentado
   - [ ] Crear sub-nivel de containers y components
