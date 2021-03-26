@@ -1,5 +1,15 @@
-## Challenge Backend
+## Tasks:
+- Backend:
+  - [ ] Validar que el id sea un numero validos -> status(400) GET, PATCH, DELETE
+  - [ ] Borrar lineas en blanco
+  - [ ] Separar metodo catch - crear carpeta helpers
+  - [ ] Factorizar la validacion de los campos
+- Frontend:
+  - [ ] Sacar codigo comentado
+  - [ ] Crear sub-nivel de containers y components
+  - [ ] Cambiar nombre de CreatePost - PostForm y que no diga siempre add ni onAdd
 
+## Challenge Backend
 
 Deberás desarrollar una API para un blog, utilizando Node y Express. Los datos deberán ser persistidos en una base de datos MySQL, utilizando Sequelize. Esta API deberá devolver datos en formato JSON.
 
