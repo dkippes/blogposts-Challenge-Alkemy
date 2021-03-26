@@ -2,6 +2,10 @@ const db = require('../database/models');
 const idParamIsNaN = require('../helpers/idParamIsNaN');
 const fieldsWrongType = require('../helpers/fieldsWrongType');
 
+/**
+ * It returns a generic response as 500 code.
+ * @param  {String} err
+ */
 function catchResponse(err) {
 	return res
 		.status(500)
